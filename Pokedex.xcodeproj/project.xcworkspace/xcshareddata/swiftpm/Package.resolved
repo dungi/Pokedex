@@ -1,0 +1,41 @@
+{
+  "pins" : [
+    {
+      "identity" : "gifu",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/kaishin/Gifu",
+      "state" : {
+        "revision" : "51f2eab32903e336f590c013267cfa4d7f8b06c4",
+        "version" : "3.3.1"
+      }
+    },
+    {
+      "identity" : "nuke",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/kean/Nuke.git",
+      "state" : {
+        "revision" : "9b62e2ecbfecdcccacd52341e38832bcc84d98f4",
+        "version" : "10.10.0"
+      }
+    },
+    {
+      "identity" : "nukeui",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/kean/NukeUI",
+      "state" : {
+        "revision" : "17f26c07e6b1d3b9258287f99f528111fcd7b7ad",
+        "version" : "0.8.1"
+      }
+    },
+    {
+      "identity" : "pokemonapi",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/kinkofer/PokemonAPI",
+      "state" : {
+        "revision" : "dfb4cfbf5f91798a5c37b031b913e21a74a06289",
+        "version" : "6.1.1"
+      }
+    }
+  ],
+  "version" : 2
+}
