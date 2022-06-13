@@ -83,7 +83,7 @@ struct PokemonTypeIndicator: View {
 //            .cornerRadius(.infinity / 2)
             Image(type.rawValue)
                 .resizable()
-                .frame(width: 32, height: 32)
+                .aspectRatio(contentMode: .fit)
         }
     }
 }
@@ -92,6 +92,8 @@ struct PokemonTypeIndicator_Previews: PreviewProvider {
     static var previews: some View {
         ForEach(PokemonType.allCases) { type in
             PokemonTypeIndicator(type: type)
+                .previewDisplayName(type.rawValue.capitalized)
+                .environment(\.colorScheme, .dark)
         }
     }
 }

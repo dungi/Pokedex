@@ -24,6 +24,7 @@ struct PokedexCard: View {
                     Spacer()
                     ForEach(pokemon.types) { type in
                         PokemonTypeIndicator(type: type)
+                            .frame(height: 32)
                     }
                 }
 
