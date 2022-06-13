@@ -36,10 +36,15 @@ class PokedexViewModel: ObservableObject {
                   let name = species.names?.first(where: { $0.language?.name == "de" })?.name
             else { continue }
             let color: Color = color(for: colorName)
+            let types: [PokemonType] = pokemon.types?.compactMap { type in
+                type.type?.name
+            }.compactMap { name in
+                PokemonType(rawValue: name)
+            } ?? []
 
             DispatchQueue.main.async {
                 self.pokemon.append(
-                    Pokemon(id: pokemonID, name: name, color: color, image: image)
+                    Pokemon(id: pokemonID, name: name, color: color, image: image, types: types)
                 )
             }
         }
@@ -55,7 +60,7 @@ class PokedexViewModel: ObservableObject {
             color = .blue
 
         case "red":
-            color = .red
+            color = Color("fireRed")
 
         case "yellow":
             color = .yellow

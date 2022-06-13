@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3E05CA9D28578D1E00F511C9 /* PokemonTypeIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E05CA9C28578D1E00F511C9 /* PokemonTypeIndicator.swift */; };
 		3E173A042850B59F001620E6 /* PokedexApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E173A032850B59F001620E6 /* PokedexApp.swift */; };
 		3E173A062850B59F001620E6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E173A052850B59F001620E6 /* ContentView.swift */; };
 		3E173A082850B5A0001620E6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3E173A072850B5A0001620E6 /* Assets.xcassets */; };
@@ -54,6 +55,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3E05CA9C28578D1E00F511C9 /* PokemonTypeIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonTypeIndicator.swift; sourceTree = "<group>"; };
 		3E173A002850B59F001620E6 /* Pokedex.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pokedex.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E173A032850B59F001620E6 /* PokedexApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokedexApp.swift; sourceTree = "<group>"; };
 		3E173A052850B59F001620E6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -179,6 +181,7 @@
 				3E173A5128524395001620E6 /* PokedexView.swift */,
 				3E173A53285243E1001620E6 /* PokedexCard.swift */,
 				3E173A552852441B001620E6 /* PokemonDetailPage.swift */,
+				3E05CA9C28578D1E00F511C9 /* PokemonTypeIndicator.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -343,6 +346,7 @@
 				3E173A062850B59F001620E6 /* ContentView.swift in Sources */,
 				3E173A042850B59F001620E6 /* PokedexApp.swift in Sources */,
 				3E173A562852441B001620E6 /* PokemonDetailPage.swift in Sources */,
+				3E05CA9D28578D1E00F511C9 /* PokemonTypeIndicator.swift in Sources */,
 				3E173A5C28524488001620E6 /* PokedexViewModel.swift in Sources */,
 				3E173A5228524395001620E6 /* PokedexView.swift in Sources */,
 			);
@@ -517,7 +521,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = net.dungi.Pokedex;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -551,7 +557,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = net.dungi.Pokedex;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

@@ -17,9 +17,15 @@ struct PokedexCard: View {
                 Text(pokemon.name)
                     .foregroundColor(.white)
 
-                Text("#\(pokemon.number)")
-                    .font(.subheadline).bold()
-                    .foregroundColor(.white)
+                HStack {
+                    Text("#\(pokemon.number)")
+                        .font(.subheadline).bold()
+                        .foregroundColor(.white)
+                    Spacer()
+                    ForEach(pokemon.types) { type in
+                        PokemonTypeIndicator(type: type)
+                    }
+                }
 
                 LazyImage(source: pokemon.image) { state in
                     if let image = state.image {

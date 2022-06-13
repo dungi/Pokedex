@@ -17,4 +17,6 @@ struct Pokemon: Identifiable {
 
     var color: Color
     var image: String
+
+    var types: [PokemonType]
 }
