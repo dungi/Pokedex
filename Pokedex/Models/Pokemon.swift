@@ -19,4 +19,5 @@ struct Pokemon: Identifiable {
     var image: String
 
     var types: [PokemonType]
+    var stats: [PokemonStat]
 }

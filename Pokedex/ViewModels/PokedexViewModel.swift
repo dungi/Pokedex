@@ -9,6 +9,11 @@ import Foundation
 import PokemonAPI
 import SwiftUI
 
+struct PokemonStat {
+    var category: String
+    var baseValue: Int
+}
+
 class PokedexViewModel: ObservableObject {
     @Published var pokemon = [Pokemon]()
     let pokemonAPI = PokemonAPI()
@@ -29,6 +34,14 @@ class PokedexViewModel: ObservableObject {
             let species = pokemonEntry.species
             let pokemon = pokemonEntry.pokemon
 
+            var stats: [PokemonStat] = []
+
+            pokemon.stats?.forEach { stat in
+                guard let baseStat = stat.baseStat,
+                      let key = stat.stat?.name
+                else { return }
+                stats.append(PokemonStat(category: key, baseValue: baseStat))
+            }
 
             guard let colorName = species.color?.name,
                   let image = pokemon.sprites?.frontDefault,
@@ -44,7 +57,7 @@ class PokedexViewModel: ObservableObject {
 
             DispatchQueue.main.async {
                 self.pokemon.append(
-                    Pokemon(id: pokemonID, name: name, color: color, image: image, types: types)
+                    Pokemon(id: pokemonID, name: name, color: color, image: image, types: types, stats: stats)
                 )
             }
         }
