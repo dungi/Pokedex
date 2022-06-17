@@ -9,7 +9,7 @@ import NukeUI
 import SwiftUI
 
 struct PokedexCard: View {
-    let pokemon: Pokemon
+    let pokemon: PokemonModel
 
     var body: some View {
         ZStack {

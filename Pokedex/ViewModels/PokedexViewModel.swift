@@ -15,7 +15,7 @@ struct PokemonStat {
 }
 
 class PokedexViewModel: ObservableObject {
-    @Published var pokemon = [Pokemon]()
+    @Published var pokemon = [PokemonModel]()
     let pokemonAPI = PokemonAPI()
 
     struct PokemonEntry {
@@ -57,7 +57,7 @@ class PokedexViewModel: ObservableObject {
 
             DispatchQueue.main.async {
                 self.pokemon.append(
-                    Pokemon(id: pokemonID, name: name, color: color, image: image, types: types, stats: stats)
+                    PokemonModel(id: pokemonID, name: name, color: color, image: image, types: types, stats: stats)
                 )
             }
         }

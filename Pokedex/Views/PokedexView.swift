@@ -9,7 +9,7 @@ import SwiftUI
 
 struct PokedexView: View {
     @ObservedObject private var viewModel = PokedexViewModel()
-    @State private var currentPokemon: Pokemon?
+    @State private var currentPokemon: PokemonModel?
     @State private var searchString = ""
 
     private let gridItems: [GridItem] = Array(repeating: .init(.adaptive(minimum: 150)), count: 2)

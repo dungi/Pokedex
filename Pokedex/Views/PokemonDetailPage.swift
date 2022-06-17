@@ -12,9 +12,9 @@ import SwiftUI
 struct PokemonDetailPage: View {
     @State private var pokemonName: String = ""
 
-    private let pokemon: Pokemon
+    private let pokemon: PokemonModel
 
-    init(pokemon: Pokemon) {
+    init(pokemon: PokemonModel) {
         self.pokemon = pokemon
     }
 

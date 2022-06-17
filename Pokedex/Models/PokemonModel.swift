@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct Pokemon: Identifiable {
+struct PokemonModel: Identifiable {
     var id: Int
 
     var name: String
