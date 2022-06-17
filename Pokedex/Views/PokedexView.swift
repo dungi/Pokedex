@@ -10,19 +10,23 @@ import SwiftUI
 struct PokedexView: View {
     @ObservedObject private var viewModel = PokedexViewModel()
     @State private var currentPokemon: Pokemon?
+    @State private var searchString = ""
 
     private let gridItems: [GridItem] = Array(repeating: .init(.adaptive(minimum: 150)), count: 2)
 
     var body: some View {
         ScrollView {
             LazyVGrid(columns: gridItems) {
-                ForEach(viewModel.pokemon) { pokemon in
+                ForEach(searchString == "" ? viewModel.pokemon : viewModel.pokemon.filter {
+                    $0.name.lowercased().contains(searchString.lowercased())
+                }) { pokemon in
                     PokedexCard(pokemon: pokemon)
                         .onTapGesture {
                             currentPokemon = pokemon
                         }
                 }
             }
+            .searchable(text: $searchString, placement: .navigationBarDrawer(displayMode: .automatic))
             .padding(EdgeInsets(top: 8, leading: 16, bottom: 0, trailing: 16))
         }
         .sheet(item: $currentPokemon) { pokemon in
