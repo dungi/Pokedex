@@ -9,7 +9,7 @@ import SwiftUI
 
 struct PokedexView: View {
     @ObservedObject private var viewModel = PokedexViewModel()
-    @State private var currentPokemon: PokemonModel?
+    @State private var currentPokemon: Pokemon?
     @State private var searchString = ""
 
     private let gridItems: [GridItem] = Array(repeating: .init(.adaptive(minimum: 150)), count: 2)
@@ -17,8 +17,8 @@ struct PokedexView: View {
     var body: some View {
         ScrollView {
             LazyVGrid(columns: gridItems) {
-                ForEach(searchString == "" ? viewModel.pokemon : viewModel.pokemon.filter {
-                    $0.name.lowercased().contains(searchString.lowercased())
+                ForEach(viewModel.pokemon.freeze().filter {
+                    $0.name.lowercased().contains(searchString.isEmpty ? $0.name.lowercased() : searchString.lowercased())
                 }) { pokemon in
                     PokedexCard(pokemon: pokemon)
                         .onTapGesture {
@@ -45,7 +45,6 @@ struct PokedexView: View {
         }
         .onAppear {
             Task {
-                guard viewModel.pokemon.isEmpty else { return }
                 await viewModel.loadPokemons()
             }
         }

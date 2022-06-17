@@ -7,14 +7,15 @@
 
 import Charts
 import NukeUI
+import RealmSwift
 import SwiftUI
 
 struct PokemonDetailPage: View {
+    private let pokemon: Pokemon
+
     @State private var pokemonName: String = ""
 
-    private let pokemon: PokemonModel
-
-    init(pokemon: PokemonModel) {
+    init(pokemon: Pokemon) {
         self.pokemon = pokemon
     }
 
@@ -26,12 +27,12 @@ struct PokemonDetailPage: View {
                     .fontWeight(.bold)
                 TextField("Pokemon Name", text: $pokemonName)
                     .frame(maxWidth: 150)
-                    .autocorrectionDisabled(true)
+                    .autocorrectionDisabled()
             }
 
             HStack {
-                Text("#\(pokemon.id)")
-                ForEach(pokemon.types) { type in
+                Text("#\(String(format: "%03d", pokemon.id))")
+                ForEach(pokemon.types.compactMap { PokemonType(rawValue: $0) }) { type in
                     PokemonTypeIndicator(type: type)
                         .frame(height: 40)
                 }
@@ -39,7 +40,7 @@ struct PokemonDetailPage: View {
 
             PokemonStats(stats: pokemon.stats)
 
-            LazyImage(source: pokemon.image)
+            LazyImage(source: pokemon.sprites?.frontDefault)
                 .aspectRatio(contentMode: .fit)
         }
         .padding(EdgeInsets(top: 64.0, leading: 0, bottom: 0, trailing: 0)) // TODO: Safe Area
@@ -49,7 +50,7 @@ struct PokemonDetailPage: View {
 }
 
 struct PokemonStats: View {
-    var stats: [PokemonStat]
+    var stats: MutableSet<PokemonStat>
 
     var body: some View {
         Chart(stats, id: \.category) { value in
@@ -57,6 +58,7 @@ struct PokemonStats: View {
                 x: .value("Wert", value.baseValue),
                 y: .value("Werte", value.category)
             ).foregroundStyle(.yellow)
-        }.chartXScale(domain: 0 ... 120)
+        }
+        .padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
     }
 }

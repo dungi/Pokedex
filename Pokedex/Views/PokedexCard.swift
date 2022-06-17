@@ -9,38 +9,39 @@ import NukeUI
 import SwiftUI
 
 struct PokedexCard: View {
-    let pokemon: PokemonModel
+    let pokemon: Pokemon
 
     var body: some View {
         ZStack {
             VStack(alignment: .leading) {
-                Text(pokemon.name)
-                    .foregroundColor(.white)
-
-                HStack {
-                    Text("#\(pokemon.number)")
-                        .font(.subheadline).bold()
-                        .foregroundColor(.white)
+                HStack(alignment: .top) {
+                    Text(pokemon.name)
+                        .font(.headline).bold()
                     Spacer()
-                    ForEach(pokemon.types) { type in
+                    Text("#\(String(format: "%03d", pokemon.id))")
+                        .font(.subheadline).italic()
+                }
+                HStack {
+                    Spacer()
+                    ForEach(pokemon.types.compactMap { PokemonType(rawValue: $0) }) { type in
                         PokemonTypeIndicator(type: type)
                             .frame(height: 32)
                     }
                 }
 
-                LazyImage(source: pokemon.image) { state in
+                LazyImage(source: pokemon.sprites?.frontDefault) { state in
                     if let image = state.image {
                         image
-                    } else if state.error != nil {
-                        Color.red
                     } else {
                         Color.clear
                     }
                 }
+                .priority(.veryLow)
                 .aspectRatio(contentMode: .fit)
             }
             .padding(16)
         }
+        .foregroundColor(.white)
         .background(pokemon.color)
         .cornerRadius(8)
         .shadow(radius: 2)
