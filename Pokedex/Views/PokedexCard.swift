@@ -23,7 +23,7 @@ struct PokedexCard: View {
                 }
                 HStack {
                     Spacer()
-                    ForEach(pokemon.types.compactMap { PokemonType(rawValue: $0) }) { type in
+                    ForEach(pokemon.typeValues) { type in
                         PokemonTypeIndicator(type: type)
                             .frame(height: 32)
                     }

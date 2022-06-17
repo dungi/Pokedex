@@ -32,7 +32,7 @@ struct PokemonDetailPage: View {
 
             HStack {
                 Text("#\(String(format: "%03d", pokemon.id))")
-                ForEach(pokemon.types.compactMap { PokemonType(rawValue: $0) }) { type in
+                ForEach(pokemon.typeValues) { type in
                     PokemonTypeIndicator(type: type)
                         .frame(height: 40)
                 }
