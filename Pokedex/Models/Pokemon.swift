@@ -15,13 +15,9 @@ class Pokemon: Object, ObjectKeyIdentifiable {
     @Persisted var weight: Int
     @Persisted var colorName: String
 
-    @Persisted var types: MutableSet<String>
+    @Persisted var types = RealmSwift.List<PokemonType>()
     @Persisted var stats: MutableSet<PokemonStat>
     @Persisted var sprites: PokemonSprites?
-
-    var typeValues: [PokemonType] {
-        types.compactMap(PokemonType.init)
-    }
 
     var color: Color {
         let color: Color

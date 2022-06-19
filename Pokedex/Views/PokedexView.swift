@@ -48,5 +48,7 @@ struct PokedexView: View {
                 await viewModel.loadPokemons()
             }
         }
+        .navigationTitle("Pokedex")
+        .navigationBarTitleDisplayMode(.large)
     }
 }

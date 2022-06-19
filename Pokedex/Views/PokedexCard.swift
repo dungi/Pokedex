@@ -13,7 +13,7 @@ struct PokedexCard: View {
 
     var body: some View {
         ZStack {
-            VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: 8.0) {
                 HStack(alignment: .top) {
                     Text(pokemon.name)
                         .font(.headline).bold()
@@ -23,12 +23,11 @@ struct PokedexCard: View {
                 }
                 HStack {
                     Spacer()
-                    ForEach(pokemon.typeValues) { type in
+                    ForEach(pokemon.types) { type in
                         PokemonTypeIndicator(type: type)
                             .frame(height: 32)
                     }
                 }
-
                 LazyImage(source: pokemon.sprites?.frontDefault) { state in
                     if let image = state.image {
                         image
@@ -45,6 +44,6 @@ struct PokedexCard: View {
         .background(pokemon.color)
         .cornerRadius(8)
         .shadow(radius: 2)
-        .frame(minHeight: 120)
+        .frame(minHeight: 100)
     }
 }

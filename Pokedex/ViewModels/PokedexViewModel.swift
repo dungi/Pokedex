@@ -16,15 +16,13 @@ class PokedexViewModel: ObservableObject {
     @Environment(\.realm) var realm
     @ObservedResults(Pokemon.self) var pokemon
 
-    struct PokemonEntry {
-        let pokemon: PKMPokemon
-        let species: PKMPokemonSpecies
-    }
-
     func loadPokemons() async {
-        guard let pokemonEntries = try? await pokemonAPI.gameService.fetchPokedex(1).pokemonEntries else { return }
+        struct PokemonEntry {
+            let pokemon: PKMPokemon
+            let species: PKMPokemonSpecies
+        }
 
-        var pokemons: [Pokemon] = []
+        guard let pokemonEntries = try? await pokemonAPI.gameService.fetchPokedex(1).pokemonEntries else { return }
         for entry in pokemonEntries {
             guard let pokemonID = entry.entryNumber, !pokemon.contains(where: { pokemon in
                 pokemonID == pokemon.id
@@ -35,40 +33,33 @@ class PokedexViewModel: ObservableObject {
 
             let species = pokemonEntry.species
             let pokemon = pokemonEntry.pokemon
-
-            let newPokemon = Pokemon()
-
-            pokemon.stats?.forEach { stat in
-                guard let category = stat.stat?.name, let baseValue = stat.baseStat else { return }
-                newPokemon.stats.insert(PokemonStat(category: category, baseValue: baseValue))
-            }
-
             guard let colorName = species.color?.name,
                   let pokemonID = species.id ?? pokemon.id,
+                  let stats = pokemon.stats,
                   let sprites = pokemon.sprites,
-                  let name = species.names?.first(where: { $0.language?.name == "de" })?.name
+                  let name = species.names?.first(where: { $0.language?.name == "de" })?.name,
+                  let types = pokemon.types?
+                      .compactMap({ $0.type?.name })
+                      .map({ PokemonType.init(rawValue: $0) }) as? [PokemonType]
             else { continue }
 
+            let newPokemon = Pokemon()
             newPokemon.id = pokemonID
             newPokemon.name = name
             newPokemon.colorName = colorName
             newPokemon.sprites = PokemonSprites(sprites: sprites)
 
-            pokemon.types?
-                .compactMap { $0.type?.name }
-                .forEach { type in
-                    newPokemon.types.insert(type)
-                }
-
-            pokemons.append(newPokemon)
-        }
-
-        do {
-            try realm.write {
-              realm.add(pokemons)
+            for stat in stats {
+                guard let category = stat.stat?.name, let baseValue = stat.baseStat else { continue }
+                newPokemon.stats.insert(PokemonStat(category: category, baseValue: baseValue))
             }
-        } catch {
-            print("ERROR", error.localizedDescription)
+
+            newPokemon.types.insert(contentsOf: types, at: 0)
+
+            realm.beginAsyncWrite {
+                self.realm.create(Pokemon.self, value: newPokemon, update: .all)
+                self.realm.commitAsyncWrite()
+            }
         }
     }
 }

@@ -13,39 +13,37 @@ import SwiftUI
 struct PokemonDetailPage: View {
     private let pokemon: Pokemon
 
-    @State private var pokemonName: String = ""
-
     init(pokemon: Pokemon) {
         self.pokemon = pokemon
     }
 
     var body: some View {
         VStack {
-            HStack {
-                Text("Ich bin ein")
-                    .font(.body)
-                    .fontWeight(.bold)
-                TextField("Pokemon Name", text: $pokemonName)
-                    .frame(maxWidth: 150)
-                    .autocorrectionDisabled()
-            }
-
-            HStack {
+            HStack(alignment: .firstTextBaseline) {
+                Text(pokemon.name)
+                    .font(.largeTitle)
+                Spacer()
                 Text("#\(String(format: "%03d", pokemon.id))")
-                ForEach(pokemon.typeValues) { type in
+                    .font(.subheadline).italic()
+            }
+            HStack {
+                Spacer()
+                ForEach(pokemon.types) { type in
                     PokemonTypeIndicator(type: type)
                         .frame(height: 40)
                 }
             }
 
-            PokemonStats(stats: pokemon.stats)
+            GroupBox("Stats") {
+                PokemonStats(stats: pokemon.stats)
+            }
 
             LazyImage(source: pokemon.sprites?.frontDefault)
                 .aspectRatio(contentMode: .fit)
         }
-        .padding(EdgeInsets(top: 64.0, leading: 0, bottom: 0, trailing: 0)) // TODO: Safe Area
+        .padding(EdgeInsets(top: 64.0, leading: 16, bottom: 0, trailing: 16)) // TODO: Safe Area
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(pokemonName == pokemon.name ? pokemon.color : .white) // TODO: Background on DarkMode
+        .background(pokemon.color)
     }
 }
 
@@ -59,6 +57,5 @@ struct PokemonStats: View {
                 y: .value("Werte", value.category)
             ).foregroundStyle(.yellow)
         }
-        .padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
     }
 }

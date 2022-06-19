@@ -5,9 +5,10 @@
 //  Created by Anh Dung Pham on 13.06.22.
 //
 
+import RealmSwift
 import SwiftUI
 
-enum PokemonType: String, CaseIterable, Identifiable {
+enum PokemonType: String, CaseIterable, Identifiable, PersistableEnum {
     var id: String { rawValue }
 
     case grass

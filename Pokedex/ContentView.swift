@@ -12,25 +12,7 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         NavigationView {
-            Form {
-                Section {
-                    HStack {
-                        Image(systemName: "sleep.circle.fill")
-                        NavigationLink(destination: PokedexView()) {
-                            Text("Pokedex")
-                        }
-                    }
-                }
-
-                Section {
-                    HStack {
-                        Image(systemName: "sleep.circle.fill")
-                        NavigationLink(destination: PokedexView()) {
-                            Text("Pokemon Namen lernen")
-                        }
-                    }
-                }
-            }
+            PokedexView()
         }
     }
 }
