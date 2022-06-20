@@ -37,17 +37,29 @@ class PokedexViewModel: ObservableObject {
                   let pokemonID = species.id ?? pokemon.id,
                   let stats = pokemon.stats,
                   let sprites = pokemon.sprites,
+                  let genum = species.genera?.first(where: { $0.language?.name == "de" })?.genus,
+                  let genderRate = species.genderRate,
                   let name = species.names?.first(where: { $0.language?.name == "de" })?.name,
                   let types = pokemon.types?
-                      .compactMap({ $0.type?.name })
-                      .map({ PokemonType.init(rawValue: $0) }) as? [PokemonType]
-            else { continue }
+                .compactMap({ $0.type?.name })
+                .map({ PokemonType.init(rawValue: $0) }) as? [PokemonType],
+                  let languages = species.names?
+                .compactMap({ language in
+                    PokemonLanguage(language: language.language?.name ?? "", name: language.name ?? "")
+                })
+            else {
+                continue
+            }
 
             let newPokemon = Pokemon()
             newPokemon.id = pokemonID
             newPokemon.name = name
             newPokemon.colorName = colorName
             newPokemon.sprites = PokemonSprites(sprites: sprites)
+            newPokemon.genum = genum
+            newPokemon.genderRate = genderRate
+            newPokemon.infoText = species.flavorTextEntries?.first(where: { $0.language?.name == "de" })?.flavorText
+            newPokemon.weight = pokemon.weight ?? 0
 
             for stat in stats {
                 guard let category = stat.stat?.name, let baseValue = stat.baseStat else { continue }
@@ -55,6 +67,7 @@ class PokedexViewModel: ObservableObject {
             }
 
             newPokemon.types.insert(contentsOf: types, at: 0)
+            newPokemon.languages.insert(contentsOf: languages, at: 0)
 
             realm.beginAsyncWrite {
                 self.realm.create(Pokemon.self, value: newPokemon, update: .all)
@@ -63,4 +76,3 @@ class PokedexViewModel: ObservableObject {
         }
     }
 }
-

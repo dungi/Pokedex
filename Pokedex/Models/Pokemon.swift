@@ -12,9 +12,14 @@ import SwiftUI
 class Pokemon: Object, ObjectKeyIdentifiable {
     @Persisted(primaryKey: true) var id: Int
     @Persisted var name: String
+    @Persisted var infoText: String?
+
     @Persisted var weight: Int
     @Persisted var colorName: String
+    @Persisted var genderRate: Int = -1
+    @Persisted var genum: String
 
+    @Persisted var languages = RealmSwift.List<PokemonLanguage>()
     @Persisted var types = RealmSwift.List<PokemonType>()
     @Persisted var stats: MutableSet<PokemonStat>
     @Persisted var sprites: PokemonSprites?
@@ -52,6 +57,26 @@ class Pokemon: Object, ObjectKeyIdentifiable {
 
         return color
     }
+
+    var languagesDictionary: [String: String] {
+        var dictionary: [String: String] = [:]
+        languages.forEach { language in
+            dictionary[language.language] = language.name
+        }
+
+        return dictionary
+    }
+
+    var genderDescription: String {
+        let femaleRate = (Double(genderRate) / 8.0) * 100
+        let maleRate = (Double(8 - genderRate) / 8.0) * 100
+
+        if genderRate == -1 { // Diverse
+            return "Unbekannt"
+        } else {
+            return "\(maleRate)% ♂ \(femaleRate)% ♀"
+        }
+    }
 }
 
 class PokemonStat: Object {
@@ -88,6 +113,20 @@ class PokemonSprites: Object {
     /// The female depiction of this Pokémon from the back in battle
     @Persisted var backFemale: String?
 
+    var sprites: [String: String] {
+        [
+            "Vorne": frontDefault ?? "",
+            "Shiny Vorne": frontShiny ?? "",
+            "Hinten": backDefault ?? "",
+            "Hinten Shiny": backShiny ?? "",
+            "Weiblich": frontFemale ?? "",
+            "Weiblich Shiny": frontShinyFemale ?? "",
+            "Weiblich Hinten": backFemale ?? ""
+        ].filter {
+            $0.value != ""
+        }
+    }
+
     override init() {}
 
     init(sprites: PKMPokemonSprites) {
@@ -97,5 +136,18 @@ class PokemonSprites: Object {
         frontShinyFemale = sprites.frontShinyFemale
         backDefault = sprites.backDefault
         backFemale = sprites.backFemale
+        backShiny = sprites.backShiny
+    }
+}
+
+class PokemonLanguage: Object {
+    @Persisted var language: String
+    @Persisted var name: String
+
+    override init() {}
+
+    init(language: String, name: String) {
+        self.language = language
+        self.name = name
     }
 }
