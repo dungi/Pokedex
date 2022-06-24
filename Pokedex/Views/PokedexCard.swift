@@ -40,7 +40,7 @@ struct PokedexCard: View {
             }
             .padding(16)
         }
-        .foregroundColor(.white)
+        .foregroundColor(.primary)
         .background(pokemon.color)
         .cornerRadius(8)
         .shadow(radius: 2)

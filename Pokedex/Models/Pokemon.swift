@@ -28,31 +28,31 @@ class Pokemon: Object, ObjectKeyIdentifiable {
         let color: Color
         switch colorName {
         case "gray", "white":
-            color = .gray
+            color = Color("sadGray")
 
         case "blue":
-            color = .blue
+            color = Color("waterBlue")
 
         case "red":
             color = Color("fireRed")
 
         case "yellow":
-            color = .yellow
+            color = Color("pikaYellow")
 
         case "green":
-            color = .green
+            color = Color("leafGreen")
 
         case "pink":
-            color = .pink
+            color = Color("gumPink")
 
         case "brown":
-            color = .brown
+            color = Color("beeBrown")
 
         case "purple":
-            color = .purple
+            color = Color("grapePurple")
 
         default:
-            color = .black
+            color = Color("darkBlack")
         }
 
         return color

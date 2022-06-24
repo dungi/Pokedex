@@ -13,7 +13,7 @@ import SwiftUI
 struct PokemonDetailPage: View {
     private let pokemon: Pokemon
 
-    private let gridItems: [GridItem] = Array(repeating: .init(.adaptive(minimum: 150)), count: 1)
+    private let gridItems: [GridItem] = Array(repeating: .init(.fixed(120.0)), count: 1)
 
     init(pokemon: Pokemon) {
         self.pokemon = pokemon
@@ -57,13 +57,18 @@ struct PokemonDetailPage: View {
                 }
 
                 if let sprites = pokemon.sprites?.sprites {
-                    ForEach(sprites.sorted(by: <), id: \.key) { value in
-                        PokemonSprite(image: value.value, subtitle: value.key)
+                    GroupBox("Sprites") {
+                        ScrollView(.horizontal) {
+                            LazyHGrid(rows: gridItems) {
+                                ForEach(sprites.sorted(by: <), id: \.key) { value in
+                                    PokemonSprite(image: value.value, subtitle: value.key)
+                                }
+                            }
+                        }
                     }
                 }
             }
-            .padding(EdgeInsets(top: 64.0, leading: 16, bottom: 0, trailing: 16)) // TODO: Safe Area
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .padding(EdgeInsets(top: 64.0, leading: 16, bottom: 16.0, trailing: 16)) // TODO: Safe Area
             .background(pokemon.color)
         }
 
@@ -107,7 +112,7 @@ struct PokeDetailInfo: View {
                     Divider()
                 }
             }
-            .background(.white)
+            .background(Color("backgroundColor"))
             .cornerRadius(8.0)
 
         }.padding(EdgeInsets(top: 0, leading: 0, bottom: 8.0, trailing: 0))
@@ -119,7 +124,7 @@ struct PokemonSprite: View {
     var subtitle: String
 
     var body: some View {
-        VStack {
+        ZStack(alignment: .bottom) {
             LazyImage(source: image)
                 .aspectRatio(contentMode: .fit)
                 .frame(maxHeight: 120.0)
