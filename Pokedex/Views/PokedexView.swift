@@ -27,12 +27,12 @@ struct PokedexView: View {
                 }
             }
             .searchable(text: $searchString, placement: .navigationBarDrawer(displayMode: .automatic))
-            .padding(EdgeInsets(top: 8, leading: 16, bottom: 0, trailing: 16))
+            .padding(EdgeInsets(top: 8, leading: 8, bottom: 0, trailing: 8))
         }
         .sheet(item: $currentPokemon) { pokemon in
             PokemonDetailPage(pokemon: pokemon)
                 .presentationDetents([
-                    .medium, .large
+                    .large
                 ])
         }
         .navigationTitle("Pokédex")

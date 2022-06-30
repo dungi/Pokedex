@@ -8,64 +8,6 @@
 import RealmSwift
 import SwiftUI
 
-enum PokemonType: String, CaseIterable, Identifiable, PersistableEnum {
-    var id: String { rawValue }
-
-    case grass
-    case bug
-    case fire
-    case water
-    case ice
-    case electric
-    case psychic
-    case poison
-    case fighting
-    case ground
-    case rock
-    case dark
-    case ghost
-    case steel
-    case fairy
-    case dragon
-    case flying
-    case normal
-
-    var backgroundColor: Color {
-        switch self {
-        case .grass,
-            .bug:
-            return .green
-        case .fire:
-            return .orange
-        case .water,
-            .ice:
-            return .blue
-        case .electric:
-            return .yellow
-        case .psychic,
-             .poison,
-             .ghost:
-            return .purple
-        case .fighting,
-            .ground,
-            .rock:
-            return .brown
-        case .dark:
-            return .black
-        case .steel:
-            return .gray
-        case .fairy:
-            return .pink
-        case .dragon:
-            return .indigo
-        case .flying:
-            return .cyan
-        case .normal:
-            return .teal
-        }
-    }
-}
-
 struct PokemonTypeIndicator: View {
     var type: PokemonType
     var body: some View {
