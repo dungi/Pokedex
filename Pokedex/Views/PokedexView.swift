@@ -12,7 +12,7 @@ struct PokedexView: View {
     @State private var currentPokemon: Pokemon?
     @State private var searchString = ""
 
-    private let gridItems: [GridItem] = Array(repeating: .init(.adaptive(minimum: 150)), count: 2)
+    private let gridItems: [GridItem] = Array(repeating: .init(.adaptive(minimum: 151)), count: 2)
 
     var body: some View {
         ScrollView {

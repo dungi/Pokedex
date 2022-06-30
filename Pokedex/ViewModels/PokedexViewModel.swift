@@ -20,6 +20,7 @@ class PokedexViewModel: ObservableObject {
         struct PokemonEntry {
             let pokemon: PKMPokemon
             let species: PKMPokemonSpecies
+            let evolutionChain: PKMEvolutionChain
         }
 
         guard let pokemonEntries = try? await pokemonAPI.gameService.fetchPokedex(1).pokemonEntries else { return }
@@ -29,10 +30,16 @@ class PokedexViewModel: ObservableObject {
             }) else { continue }
             async let fetchSpecies = pokemonAPI.pokemonService.fetchPokemonSpecies(pokemonID)
             async let fetchPokemon = pokemonAPI.pokemonService.fetchPokemon(pokemonID)
-            guard let pokemonEntry = try? await PokemonEntry(pokemon: fetchPokemon, species: fetchSpecies) else { continue }
+            async let fetchEvolutionChain = pokemonAPI.evolutionService.fetchEvolutionChain(pokemonID)
+            guard let pokemonEntry = try? await PokemonEntry(pokemon: fetchPokemon,
+                                                             species: fetchSpecies,
+                                                             evolutionChain: fetchEvolutionChain)
+            else { continue }
 
             let species = pokemonEntry.species
             let pokemon = pokemonEntry.pokemon
+            let evolutionChain = pokemonEntry.evolutionChain
+
             guard let colorName = species.color?.name,
                   let pokemonID = species.id ?? pokemon.id,
                   let stats = pokemon.stats,

@@ -16,7 +16,9 @@ struct PokedexCard: View {
             VStack(alignment: .leading, spacing: 8.0) {
                 HStack(alignment: .top) {
                     Text(pokemon.name)
+                        .lineLimit(1)
                         .font(.headline).bold()
+                        .minimumScaleFactor(0.5)
                     Spacer()
                     Text("#\(String(format: "%03d", pokemon.id))")
                         .font(.subheadline).italic()
@@ -43,7 +45,6 @@ struct PokedexCard: View {
         .foregroundColor(.primary)
         .background(pokemon.color)
         .cornerRadius(8)
-        .shadow(radius: 2)
-        .frame(minHeight: 100)
+        .frame(minHeight: 75)
     }
 }

@@ -74,7 +74,7 @@ class Pokemon: Object, ObjectKeyIdentifiable {
         if genderRate == -1 { // Diverse
             return "Unbekannt"
         } else {
-            return "\(maleRate)% ♂ \(femaleRate)% ♀"
+            return "\(maleRate)% ♂️\(femaleRate)% ♀️"
         }
     }
 }

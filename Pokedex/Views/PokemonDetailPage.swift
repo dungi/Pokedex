@@ -13,8 +13,6 @@ import SwiftUI
 struct PokemonDetailPage: View {
     private let pokemon: Pokemon
 
-    private let gridItems: [GridItem] = Array(repeating: .init(.fixed(120.0)), count: 1)
-
     init(pokemon: Pokemon) {
         self.pokemon = pokemon
     }
@@ -52,26 +50,34 @@ struct PokemonDetailPage: View {
                     PokeDetailInfo(title: "Sprache", dictionary: pokemon.languagesDictionary)
                 }
 
-                GroupBox("Stats") {
+                GroupBox("Basiswerte") {
                     PokemonStats(stats: pokemon.stats)
                 }
 
-                if let sprites = pokemon.sprites?.sprites {
-                    GroupBox("Sprites") {
-                        ScrollView(.horizontal) {
-                            LazyHGrid(rows: gridItems) {
-                                ForEach(sprites.sorted(by: <), id: \.key) { value in
-                                    PokemonSprite(image: value.value, subtitle: value.key)
-                                }
-                            }
-                        }
+                if let sprites = pokemon.sprites {
+                    PokemonSpriteGrid(sprites: sprites)
+                }
+            }
+            .padding(EdgeInsets(top: 16.0, leading: 16.0, bottom: 16.0, trailing: 16.0)) // TODO: Safe Area
+        }
+        .background(pokemon.color)
+    }
+}
+
+struct PokemonSpriteGrid: View {
+    private let gridItems: [GridItem] = Array(repeating: .init(.fixed(120.0)), count: 1)
+    @State var sprites: PokemonSprites
+
+    var body: some View {
+        GroupBox("Sprites") {
+            ScrollView(.horizontal) {
+                LazyHGrid(rows: gridItems) {
+                    ForEach(sprites.sprites.sorted(by: <), id: \.key) { value in
+                        PokemonSprite(image: value.value, subtitle: value.key)
                     }
                 }
             }
-            .padding(EdgeInsets(top: 64.0, leading: 16, bottom: 16.0, trailing: 16)) // TODO: Safe Area
-            .background(pokemon.color)
         }
-
     }
 }
 
@@ -84,7 +90,7 @@ struct PokemonStats: View {
                 x: .value("Wert", value.baseValue),
                 y: .value("Werte", value.category)
             ).foregroundStyle(.yellow)
-        }
+        }.frame(height: 250.0)
     }
 }
 
