@@ -45,7 +45,6 @@ class PokedexViewModel: ObservableObject {
                   let stats = pokemon.stats,
                   let sprites = pokemon.sprites,
                   let genum = species.genera?.first(where: { $0.language?.name == "de" })?.genus,
-                  let genderRate = species.genderRate,
                   let name = species.names?.first(where: { $0.language?.name == "de" })?.name,
                   let types = pokemon.types?
                 .compactMap({ $0.type?.name })
@@ -64,9 +63,17 @@ class PokedexViewModel: ObservableObject {
             newPokemon.colorName = colorName
             newPokemon.sprites = PokemonSprites(sprites: sprites)
             newPokemon.genum = genum
-            newPokemon.genderRate = genderRate
-            newPokemon.infoText = species.flavorTextEntries?.first(where: { $0.language?.name == "de" })?.flavorText
+            newPokemon.generation = Generation(rawValue: species.generation?.name ?? "")
+            newPokemon.captureRate = species.captureRate ?? 0
+            newPokemon.hatchCounter = species.hatchCounter ?? -1
             newPokemon.weight = pokemon.weight ?? 0
+            newPokemon.genderRate = species.genderRate ?? -1
+            newPokemon.infoText = species.flavorTextEntries?.first(where: { $0.language?.name == "de" })?.flavorText
+            newPokemon.formText = species.formDescriptions?.first(where: { $0.language?.name == "de" })?.description
+
+            newPokemon.formsSwitchable = species.formsSwitchable ?? false
+            newPokemon.hasGenderDifferences = species.hasGenderDifferences ?? false
+            newPokemon.isBaby = species.isBaby ?? false
 
             for stat in stats {
                 guard let category = stat.stat?.name, let baseValue = stat.baseStat else { continue }

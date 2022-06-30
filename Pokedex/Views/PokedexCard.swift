@@ -23,28 +23,31 @@ struct PokedexCard: View {
                     Text("#\(String(format: "%03d", pokemon.id))")
                         .font(.subheadline).italic()
                 }
-                HStack {
-                    Spacer()
-                    ForEach(pokemon.types) { type in
-                        PokemonTypeIndicator(type: type)
-                            .frame(height: 32)
+                ZStack(alignment: .top) {
+                    LazyImage(source: pokemon.sprites?.frontDefault) { state in
+                        if let image = state.image {
+                            image
+                        } else {
+                            Color.clear
+                        }
+                    }
+                    .priority(.veryLow)
+                    .aspectRatio(contentMode: .fit)
+                    .padding(EdgeInsets(top: 24.0, leading: 0, bottom: 0, trailing: 0))
+                    HStack {
+                        Spacer()
+                        ForEach(pokemon.types) { type in
+                            PokemonTypeIndicator(type: type)
+                                .frame(height: 32)
+                        }
                     }
                 }
-                LazyImage(source: pokemon.sprites?.frontDefault) { state in
-                    if let image = state.image {
-                        image
-                    } else {
-                        Color.clear
-                    }
-                }
-                .priority(.veryLow)
-                .aspectRatio(contentMode: .fit)
             }
             .padding(16)
         }
         .foregroundColor(.primary)
         .background(pokemon.color)
         .cornerRadius(8)
-        .frame(minHeight: 75)
+        .frame(height: 180)
     }
 }

@@ -29,8 +29,14 @@ struct PokemonDetailPage: View {
                 }
                 HStack(alignment: .top) {
                     if let text = pokemon.infoText {
-                        Text(text)
-                            .font(.caption)
+                        VStack {
+                            Text(text)
+                                .font(.caption)
+                            if let formText = pokemon.formText {
+                                Text(formText)
+                                    .font(.caption)
+                            }
+                        }
                     }
                     Spacer()
                     ForEach(pokemon.types) { type in
@@ -42,12 +48,17 @@ struct PokemonDetailPage: View {
 
                 LazyVStack(alignment: .leading) {
                     PokeDetailInfo(title: "Allgemeine Informationen", dictionary: [
+                        "Generation": pokemon.generation?.localizedName,
+                        "Spiel": pokemon.generation?.gameName,
+                        "Region": pokemon.generation?.regionName,
                         "Gewicht": "\(Double(pokemon.weight)/10.0) kg",
                         "Kategorie": pokemon.genum,
+                        "Fangrate": "\(pokemon.captureRate)",
+                        "Ei-Zyklen": "\(pokemon.hatchCounter)",
                         "Geschlecht": pokemon.genderDescription
-                    ])
+                    ].compactMapValues { $0 })
 
-                    PokeDetailInfo(title: "Sprache", dictionary: pokemon.languagesDictionary)
+                    PokeDetailInfo(title: "Auf anderen Sprachen", dictionary: pokemon.languagesDictionary)
                 }
 
                 GroupBox("Basiswerte") {
@@ -65,16 +76,14 @@ struct PokemonDetailPage: View {
 }
 
 struct PokemonSpriteGrid: View {
-    private let gridItems: [GridItem] = Array(repeating: .init(.fixed(120.0)), count: 1)
+    private let gridItems: [GridItem] = Array(repeating: .init(.adaptive(minimum: 120)), count: 3)
     @State var sprites: PokemonSprites
 
     var body: some View {
         GroupBox("Sprites") {
-            ScrollView(.horizontal) {
-                LazyHGrid(rows: gridItems) {
-                    ForEach(sprites.sprites.sorted(by: <), id: \.key) { value in
-                        PokemonSprite(image: value.value, subtitle: value.key)
-                    }
+            LazyVGrid(columns: gridItems) {
+                ForEach(sprites.sprites.sorted(by: <), id: \.key) { value in
+                    PokemonSprite(image: value.value, subtitle: value.key)
                 }
             }
         }

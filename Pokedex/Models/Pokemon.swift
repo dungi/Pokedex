@@ -9,15 +9,98 @@ import RealmSwift
 import PokemonAPI
 import SwiftUI
 
+enum Generation: String, PersistableEnum {
+    case one = "generation-i"
+    case two = "generation-ii"
+    case three = "generation-iii"
+    case four = "generation-iv"
+    case five = "generation-v"
+    case six = "generation-vi"
+    case seven = "generation-vii"
+    case eight = "generation-viii"
+
+    var localizedName: String {
+        switch self {
+        case .one:
+            return "1. Generation"
+        case .two:
+            return "2. Generation"
+        case .three:
+            return "3. Generation"
+        case .four:
+            return "4. Generation"
+        case .five:
+            return "5. Generation"
+        case .six:
+            return "6. Generation"
+        case .seven:
+            return "7. Generation"
+        case .eight:
+            return "8. Generation"
+        }
+    }
+
+    var gameName: String {
+        switch self {
+        case .one:
+            return "Rot & Blau"
+        case .two:
+            return "Silber & Gold"
+        case .three:
+            return "Rubin & Sapahir"
+        case .four:
+            return "Diamant & Perle"
+        case .five:
+            return "Schwarz & Weiß"
+        case .six:
+            return "X & Y"
+        case .seven:
+            return "Sonne & Mond"
+        case .eight:
+            return "Schwert & Schild"
+        }
+    }
+
+    var regionName: String {
+        switch self {
+        case .one:
+            return "Kanto"
+        case .two:
+            return "Johto"
+        case .three:
+            return "Hoenn"
+        case .four:
+            return "Sinnoh"
+        case .five:
+            return "Unova"
+        case .six:
+            return "Kalos"
+        case .seven:
+            return "Alola"
+        case .eight:
+            return "Galar"
+        }
+    }
+}
+
 class Pokemon: Object, ObjectKeyIdentifiable {
     @Persisted(primaryKey: true) var id: Int
     @Persisted var name: String
     @Persisted var infoText: String?
+    @Persisted var formText: String?
 
     @Persisted var weight: Int
     @Persisted var colorName: String
-    @Persisted var genderRate: Int = -1
     @Persisted var genum: String
+    @Persisted var generation: Generation?
+
+    @Persisted var hatchCounter: Int
+    @Persisted var genderRate: Int = -1
+    @Persisted var captureRate: Int
+
+    @Persisted var formsSwitchable: Bool = false
+    @Persisted var hasGenderDifferences: Bool = false
+    @Persisted var isBaby: Bool = false
 
     @Persisted var languages = RealmSwift.List<PokemonLanguage>()
     @Persisted var types = RealmSwift.List<PokemonType>()
@@ -61,7 +144,9 @@ class Pokemon: Object, ObjectKeyIdentifiable {
     var languagesDictionary: [String: String] {
         var dictionary: [String: String] = [:]
         languages.forEach { language in
-            dictionary[language.language] = language.name
+            if let localizedLanguage = language.localizedLanguage {
+                dictionary[localizedLanguage] = language.name
+            }
         }
 
         return dictionary
@@ -143,6 +228,37 @@ class PokemonSprites: Object {
 class PokemonLanguage: Object {
     @Persisted var language: String
     @Persisted var name: String
+
+    var localizedLanguage: String? {
+        switch language {
+        case "en":
+            return "Englisch"
+
+        case "es":
+            return "Spanisch"
+
+        case "fr":
+            return "Französisch"
+
+        case "it":
+            return "Italienisch"
+
+        case "ja":
+            return "Japanisch"
+
+        case "ko":
+            return "Koreanisch"
+
+        case "roomaji":
+            return "Rōmaji"
+
+        case "zh-Hant":
+            return "Chinesisch"
+
+        default:
+            return nil
+        }
+    }
 
     override init() {}
 
