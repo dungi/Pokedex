@@ -715,7 +715,7 @@
 			repositoryURL = "https://github.com/kinkofer/PokemonAPI";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 6.0.0;
+				minimumVersion = 6.1.1;
 			};
 		};
 		3E173A322850D573001620E6 /* XCRemoteSwiftPackageReference "NukeUI" */ = {
@@ -731,7 +731,7 @@
 			repositoryURL = "https://github.com/realm/realm-swift";
 			requirement = {
 				kind = upToNextMinorVersion;
-				minimumVersion = 10.28.1;
+				minimumVersion = 10.28.2;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */

@@ -19,7 +19,7 @@ struct PokemonDetailPage: View {
 
     var body: some View {
         ScrollView {
-            VStack {
+            VStack(spacing: 16.0) {
                 HStack(alignment: .firstTextBaseline) {
                     Text(pokemon.name)
                         .font(.largeTitle)
@@ -46,7 +46,12 @@ struct PokemonDetailPage: View {
                 }
 
                 GroupBox("Typ-Schwächen") {
-                    WeaknessView(types: pokemon.types)
+                    ScrollView(.horizontal) {
+                        HStack {
+                            WeaknessView(types: pokemon.types)
+                            Spacer()
+                        }
+                    }.scrollDisabled(true)
                 }
 
 
@@ -107,82 +112,36 @@ struct PokemonStats: View {
     }
 }
 
+struct WeaknessRow: View {
+    @State var damage: String
+    @State var types: [PokemonType]
+
+    var body: some View {
+        GridRow(alignment: .center) {
+            Text(damage)
+                .font(.caption2)
+                .frame(width: 28, height: 28)
+                .background(.yellow)
+                .cornerRadius(.infinity)
+            ForEach(types) { type in
+                PokemonTypeIndicator(type: type)
+                    .frame(height: 28)
+            }
+        }
+    }
+}
+
 struct WeaknessView: View {
     @State var types: RealmSwift.List<PokemonType>
 
     var body: some View {
-        Grid(alignment: .leading) {
-            GridRow {
-                Text("0x")
-                    .font(.caption2)
-                    .frame(width: 32, height: 32)
-                    .background(.white)
-                    .cornerRadius(.infinity)
-                ForEach(types.isImmuneTo) { isImmuneTo in
-                    PokemonTypeIndicator(type: isImmuneTo)
-                        .frame(height: 32)
-                }
-            }
-
-            GridRow {
-                Text("1/4x")
-                    .font(.caption2)
-                    .frame(width: 32, height: 32)
-                    .background(.white)
-                    .cornerRadius(.infinity)
-                ForEach(types.isDoubleResistanceAgainst) { doubleResistenceTo in
-                    PokemonTypeIndicator(type: doubleResistenceTo)
-                        .frame(height: 32)
-                }
-            }
-
-            GridRow {
-                Text("1/2x")
-                    .font(.caption2)
-                    .frame(width: 32, height: 32)
-                    .background(.white)
-                    .cornerRadius(.infinity)
-                ForEach(types.isResistanceAgainst) { resistenceTo in
-                    PokemonTypeIndicator(type: resistenceTo)
-                        .frame(height: 32)
-                }
-            }
-
-            GridRow(alignment: .center) {
-                Text("1x")
-                    .font(.caption2)
-                    .frame(width: 32, height: 32)
-                    .background(.white)
-                    .cornerRadius(.infinity)
-                ForEach(types.hasNormalDamageAgainst) { normalDamage in
-                    PokemonTypeIndicator(type: normalDamage)
-                        .frame(height: 32)
-                }
-            }
-
-            GridRow {
-                Text("2x")
-                    .font(.caption2)
-                    .frame(width: 32, height: 32)
-                    .background(.white)
-                    .cornerRadius(.infinity)
-                ForEach(types.isWeakTo) { weakTo in
-                    PokemonTypeIndicator(type: weakTo)
-                        .frame(height: 32)
-                }
-            }
-
-            GridRow {
-                Text("4x")
-                    .font(.caption2)
-                    .frame(width: 32, height: 32)
-                    .background(.white)
-                    .cornerRadius(.infinity)
-                ForEach(types.isDoubleWeakTo) { doubleWeakTo in
-                    PokemonTypeIndicator(type: doubleWeakTo)
-                        .frame(height: 32)
-                }
-            }
+        Grid(alignment: .center, horizontalSpacing: 4.0) {
+            WeaknessRow(damage: "0x", types: types.isImmuneTo)
+            WeaknessRow(damage: "1/4x", types: types.isDoubleResistanceAgainst)
+            WeaknessRow(damage: "1/2x", types: types.isResistanceAgainst)
+            WeaknessRow(damage: "1x", types: types.hasNormalDamageAgainst)
+            WeaknessRow(damage: "2x", types: types.isWeakTo)
+            WeaknessRow(damage: "4x", types: types.isDoubleWeakTo)
         }
     }
 }

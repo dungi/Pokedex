@@ -10,11 +10,12 @@ import PokemonAPI
 import RealmSwift
 import SwiftUI
 
-class PokedexViewModel: ObservableObject {
+@MainActor class PokedexViewModel: ObservableObject {
     private let pokemonAPI = PokemonAPI()
 
     @Environment(\.realm) var realm
     @ObservedResults(Pokemon.self) var pokemon
+    @Published var pokemons: Results<Pokemon>?
 
     func loadPokemons() async {
         struct PokemonEntry {
@@ -38,7 +39,6 @@ class PokedexViewModel: ObservableObject {
 
             let species = pokemonEntry.species
             let pokemon = pokemonEntry.pokemon
-            let evolutionChain = pokemonEntry.evolutionChain
 
             guard let colorName = species.color?.name,
                   let pokemonID = species.id ?? pokemon.id,

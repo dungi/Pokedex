@@ -211,11 +211,13 @@ extension RealmSwift.List where Element == PokemonType {
     }
 
     private func doubleWeakTo() -> Set<PokemonType> {
-        map(\.isWeakAgainst).onlyTheDuplicates()
+        guard count > 1 else { return [] }
+        return map(\.isWeakAgainst).onlyTheDuplicates()
     }
 
     private func doubleResistenceTo() -> Set<PokemonType> {
-        map(\.isResistenceAgainst).onlyTheDuplicates()
+        guard count > 1 else { return [] }
+        return map(\.isResistenceAgainst).onlyTheDuplicates()
     }
     
     private func immuneTo() -> Set<PokemonType> {
@@ -236,6 +238,7 @@ extension RealmSwift.List where Element == PokemonType {
                 !doubleResistance.contains($0) &&
                 !weakness.contains($0)
             }
+            .sorted()
     }
 
     var isWeakTo: [PokemonType] {
@@ -252,6 +255,7 @@ extension RealmSwift.List where Element == PokemonType {
                 !doubleResistance.contains($0) &&
                 !immune.contains($0)
             }
+            .sorted()
     }
 
     var isDoubleWeakTo: [PokemonType] {
@@ -268,6 +272,7 @@ extension RealmSwift.List where Element == PokemonType {
                 !doubleResistance.contains($0) &&
                 !immune.contains($0)
             }
+            .sorted()
     }
 
     var isResistanceAgainst: [PokemonType] {
@@ -284,6 +289,7 @@ extension RealmSwift.List where Element == PokemonType {
                 !doubleResistance.contains($0) &&
                 !immune.contains($0)
             }
+            .sorted()
     }
 
     var isDoubleResistanceAgainst: [PokemonType] {
@@ -300,6 +306,7 @@ extension RealmSwift.List where Element == PokemonType {
                 !resistance.contains($0) &&
                 !immune.contains($0)
             }
+            .sorted()
     }
 
     var hasNormalDamageAgainst: [PokemonType] {
@@ -309,12 +316,14 @@ extension RealmSwift.List where Element == PokemonType {
         let doubleResistance = doubleResistenceTo()
         let immune = immuneTo()
 
-        return PokemonType.allCases.filter {
+        return PokemonType.allCases
+            .filter {
                 !doubleWeakness.contains($0) &&
                 !weakness.contains($0) &&
                 !resistance.contains($0) &&
                 !immune.contains($0) &&
                 !doubleResistance.contains($0)
             }
+            .sorted()
     }
 }
