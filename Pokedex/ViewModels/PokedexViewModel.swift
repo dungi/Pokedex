@@ -14,28 +14,25 @@ import SwiftUI
     private let pokemonAPI = PokemonAPI()
 
     @Environment(\.realm) var realm
-    @ObservedResults(Pokemon.self) var pokemon
+    @ObservedResults(Pokemon.self) var pokemonRealm
     @Published var pokemons: Results<Pokemon>?
 
     func loadPokemons() async {
         struct PokemonEntry {
             let pokemon: PKMPokemon
             let species: PKMPokemonSpecies
-            let evolutionChain: PKMEvolutionChain
         }
+
+        pokemons = pokemonRealm.freeze()
 
         guard let pokemonEntries = try? await pokemonAPI.gameService.fetchPokedex(1).pokemonEntries else { return }
         for entry in pokemonEntries {
-            guard let pokemonID = entry.entryNumber, !pokemon.contains(where: { pokemon in
+            guard let pokemonID = entry.entryNumber, !pokemonRealm.contains(where: { pokemon in
                 pokemonID == pokemon.id
             }) else { continue }
             async let fetchSpecies = pokemonAPI.pokemonService.fetchPokemonSpecies(pokemonID)
             async let fetchPokemon = pokemonAPI.pokemonService.fetchPokemon(pokemonID)
-            async let fetchEvolutionChain = pokemonAPI.evolutionService.fetchEvolutionChain(pokemonID)
-            guard let pokemonEntry = try? await PokemonEntry(pokemon: fetchPokemon,
-                                                             species: fetchSpecies,
-                                                             evolutionChain: fetchEvolutionChain)
-            else { continue }
+            guard let pokemonEntry = try? await PokemonEntry(pokemon: fetchPokemon, species: fetchSpecies) else { continue }
 
             let species = pokemonEntry.species
             let pokemon = pokemonEntry.pokemon
@@ -85,7 +82,9 @@ import SwiftUI
 
             realm.beginAsyncWrite {
                 self.realm.create(Pokemon.self, value: newPokemon, update: .all)
-                self.realm.commitAsyncWrite()
+                self.realm.commitAsyncWrite { _ in
+                    self.pokemons = self.pokemonRealm.freeze()
+                }
             }
         }
     }

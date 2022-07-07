@@ -17,13 +17,15 @@ struct PokedexView: View {
     var body: some View {
         ScrollView {
             LazyVGrid(columns: gridItems) {
-                ForEach(viewModel.pokemon.freeze().filter {
-                    $0.name.lowercased().contains(searchString.isEmpty ? $0.name.lowercased() : searchString.lowercased())
-                }) { pokemon in
-                    PokedexCard(pokemon: pokemon)
-                        .onTapGesture {
-                            currentPokemon = pokemon
-                        }
+                if let pokemons = viewModel.pokemons {
+                    ForEach(pokemons.filter {
+                        $0.name.lowercased().contains(searchString.isEmpty ? $0.name.lowercased() : searchString.lowercased())
+                    }) { pokemon in
+                        PokedexCard(pokemon: pokemon)
+                            .onTapGesture {
+                                currentPokemon = pokemon
+                            }
+                    }
                 }
             }
             .searchable(text: $searchString, placement: .navigationBarDrawer(displayMode: .automatic))
@@ -39,7 +41,7 @@ struct PokedexView: View {
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
                 Button("Random") {
-                    currentPokemon = viewModel.pokemon.randomElement()
+                    currentPokemon = viewModel.pokemons?.randomElement()
                 }
             }
         }

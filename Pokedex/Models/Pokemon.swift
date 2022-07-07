@@ -198,11 +198,11 @@ class PokemonSprites: Object {
     /// The female depiction of this Pokémon from the back in battle
     @Persisted var backFemale: String?
 
-    var sprites: [String: String] {
+    var sprites: [(key: String, value: String)] {
         [
             "Vorne": frontDefault ?? "",
-            "Shiny Vorne": frontShiny ?? "",
             "Hinten": backDefault ?? "",
+            "Shiny Vorne": frontShiny ?? "",
             "Hinten Shiny": backShiny ?? "",
             "Weiblich": frontFemale ?? "",
             "Weiblich Shiny": frontShinyFemale ?? "",
