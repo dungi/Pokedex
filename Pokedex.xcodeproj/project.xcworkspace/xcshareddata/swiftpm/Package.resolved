@@ -14,8 +14,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/kean/Nuke.git",
       "state" : {
-        "revision" : "9b62e2ecbfecdcccacd52341e38832bcc84d98f4",
-        "version" : "10.10.0"
+        "revision" : "a002b7fd786f2df2ed4333fe73a9727499fd9d97",
+        "version" : "10.11.2"
       }
     },
     {
@@ -23,8 +23,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/kean/NukeUI",
       "state" : {
-        "revision" : "ebfed3c9a4e97e310b0ff8ee0fffe5579887a825",
-        "version" : "0.8.2"
+        "revision" : "db55022a8e483774ebbf3568727071477546d9ea",
+        "version" : "0.8.3"
       }
     },
     {
@@ -41,8 +41,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/realm/realm-core",
       "state" : {
-        "revision" : "55a48c287b5e3a8ca129c257ec7e3b92bcb2a05f",
-        "version" : "12.3.0"
+        "revision" : "2b8def17bb8e0cddbcc754db6b6466b8487feebf",
+        "version" : "12.5.0"
       }
     },
     {
@@ -50,8 +50,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/realm/realm-swift",
       "state" : {
-        "revision" : "fd279e0a94b46c5bd65b17e36817a4365c7a5482",
-        "version" : "10.28.2"
+        "revision" : "a107f5660b0b6067700923af7f107b6af73c546b",
+        "version" : "10.28.5"
       }
     }
   ],
