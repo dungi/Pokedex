@@ -14,7 +14,7 @@ struct PokemonSprite: View {
 
     var body: some View {
         ZStack(alignment: .bottom) {
-            LazyImage(source: image)
+            AsyncImage(url: URL(string: image))
                 .aspectRatio(contentMode: .fit)
                 .frame(maxHeight: 124.0)
             Text(subtitle)

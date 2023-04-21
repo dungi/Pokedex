@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		3E05CA9D28578D1E00F511C9 /* PokemonTypeIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E05CA9C28578D1E00F511C9 /* PokemonTypeIndicator.swift */; };
+		3E07E99D29F0150A00DE856C /* NukeUI in Frameworks */ = {isa = PBXBuildFile; productRef = 3E07E99C29F0150A00DE856C /* NukeUI */; };
+		3E07E99F29F149BE00DE856C /* DragAndDropGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E07E99E29F149BE00DE856C /* DragAndDropGame.swift */; };
 		3E173A042850B59F001620E6 /* PokedexApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E173A032850B59F001620E6 /* PokedexApp.swift */; };
 		3E173A062850B59F001620E6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E173A052850B59F001620E6 /* ContentView.swift */; };
 		3E173A082850B5A0001620E6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3E173A072850B5A0001620E6 /* Assets.xcassets */; };
@@ -16,7 +18,6 @@
 		3E173A202850B5A0001620E6 /* PokedexUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E173A1F2850B5A0001620E6 /* PokedexUITests.swift */; };
 		3E173A222850B5A0001620E6 /* PokedexUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E173A212850B5A0001620E6 /* PokedexUITestsLaunchTests.swift */; };
 		3E173A302850BA3F001620E6 /* PokemonAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 3E173A2F2850BA3F001620E6 /* PokemonAPI */; };
-		3E173A342850D573001620E6 /* NukeUI in Frameworks */ = {isa = PBXBuildFile; productRef = 3E173A332850D573001620E6 /* NukeUI */; };
 		3E173A5228524395001620E6 /* PokedexView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E173A5128524395001620E6 /* PokedexView.swift */; };
 		3E173A54285243E1001620E6 /* PokedexCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E173A53285243E1001620E6 /* PokedexCard.swift */; };
 		3E173A562852441B001620E6 /* PokemonDetailPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E173A552852441B001620E6 /* PokemonDetailPage.swift */; };
@@ -64,6 +65,7 @@
 
 /* Begin PBXFileReference section */
 		3E05CA9C28578D1E00F511C9 /* PokemonTypeIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonTypeIndicator.swift; sourceTree = "<group>"; };
+		3E07E99E29F149BE00DE856C /* DragAndDropGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragAndDropGame.swift; sourceTree = "<group>"; };
 		3E173A002850B59F001620E6 /* Pokedex.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pokedex.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E173A032850B59F001620E6 /* PokedexApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokedexApp.swift; sourceTree = "<group>"; };
 		3E173A052850B59F001620E6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -97,9 +99,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3E07E99D29F0150A00DE856C /* NukeUI in Frameworks */,
 				3E93F402285CC1B1008F17CA /* RealmSwift in Frameworks */,
 				3E173A302850BA3F001620E6 /* PokemonAPI in Frameworks */,
-				3E173A342850D573001620E6 /* NukeUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -224,6 +226,7 @@
 			isa = PBXGroup;
 			children = (
 				3E1EA50728AE81A0001B8D97 /* QuizView.swift */,
+				3E07E99E29F149BE00DE856C /* DragAndDropGame.swift */,
 			);
 			path = Quiz;
 			sourceTree = "<group>";
@@ -276,8 +279,8 @@
 			name = Pokedex;
 			packageProductDependencies = (
 				3E173A2F2850BA3F001620E6 /* PokemonAPI */,
-				3E173A332850D573001620E6 /* NukeUI */,
 				3E93F401285CC1B1008F17CA /* RealmSwift */,
+				3E07E99C29F0150A00DE856C /* NukeUI */,
 			);
 			productName = Pokedex;
 			productReference = 3E173A002850B59F001620E6 /* Pokedex.app */;
@@ -353,8 +356,8 @@
 			mainGroup = 3E1739F72850B59F001620E6;
 			packageReferences = (
 				3E173A2E2850BA3F001620E6 /* XCRemoteSwiftPackageReference "PokemonAPI" */,
-				3E173A322850D573001620E6 /* XCRemoteSwiftPackageReference "NukeUI" */,
 				3E93F400285CC1B1008F17CA /* XCRemoteSwiftPackageReference "realm-swift" */,
+				3E07E99B29F0150A00DE856C /* XCRemoteSwiftPackageReference "Nuke" */,
 			);
 			productRefGroup = 3E173A012850B59F001620E6 /* Products */;
 			projectDirPath = "";
@@ -398,6 +401,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3E07E99F29F149BE00DE856C /* DragAndDropGame.swift in Sources */,
 				3E9C22E8286F4ADB004A3B97 /* StatsView.swift in Sources */,
 				3E173A5928524474001620E6 /* PokemonModel.swift in Sources */,
 				3E1EA50828AE81A0001B8D97 /* QuizView.swift in Sources */,
@@ -588,6 +592,7 @@
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG EPAPER";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -762,6 +767,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		3E07E99B29F0150A00DE856C /* XCRemoteSwiftPackageReference "Nuke" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kean/Nuke";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 12.0.0;
+			};
+		};
 		3E173A2E2850BA3F001620E6 /* XCRemoteSwiftPackageReference "PokemonAPI" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/kinkofer/PokemonAPI";
@@ -770,34 +783,26 @@
 				minimumVersion = 6.1.1;
 			};
 		};
-		3E173A322850D573001620E6 /* XCRemoteSwiftPackageReference "NukeUI" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/kean/NukeUI";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.8.2;
-			};
-		};
 		3E93F400285CC1B1008F17CA /* XCRemoteSwiftPackageReference "realm-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/realm/realm-swift";
 			requirement = {
 				kind = upToNextMinorVersion;
-				minimumVersion = 10.28.2;
+				minimumVersion = 10.38.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		3E07E99C29F0150A00DE856C /* NukeUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3E07E99B29F0150A00DE856C /* XCRemoteSwiftPackageReference "Nuke" */;
+			productName = NukeUI;
+		};
 		3E173A2F2850BA3F001620E6 /* PokemonAPI */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 3E173A2E2850BA3F001620E6 /* XCRemoteSwiftPackageReference "PokemonAPI" */;
 			productName = PokemonAPI;
-		};
-		3E173A332850D573001620E6 /* NukeUI */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3E173A322850D573001620E6 /* XCRemoteSwiftPackageReference "NukeUI" */;
-			productName = NukeUI;
 		};
 		3E93F401285CC1B1008F17CA /* RealmSwift */ = {
 			isa = XCSwiftPackageProductDependency;

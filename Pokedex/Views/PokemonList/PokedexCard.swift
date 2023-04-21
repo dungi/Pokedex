@@ -19,21 +19,24 @@ struct PokedexCard: View {
                         .lineLimit(1)
                         .font(.headline).bold()
                         .minimumScaleFactor(0.5)
+
                     Spacer()
+
                     Text("#\(String(format: "%03d", pokemon.id))")
                         .font(.subheadline).italic()
                 }
                 ZStack(alignment: .top) {
-                    LazyImage(source: pokemon.sprites?.frontDefault) { state in
+                    AsyncImage(url: URL(string: pokemon.sprites?.frontDefault ?? "")) { state in
                         if let image = state.image {
                             image
+                                .aspectRatio(contentMode: .fit)
                         } else {
                             Color.clear
                         }
                     }
-                    .priority(.veryLow)
-                    .aspectRatio(contentMode: .fit)
                     .padding(EdgeInsets(top: 24.0, leading: 0, bottom: 0, trailing: 0))
+                    .unredacted()
+
                     HStack {
                         Spacer()
                         ForEach(pokemon.types) { type in

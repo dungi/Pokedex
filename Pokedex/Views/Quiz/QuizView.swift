@@ -57,7 +57,7 @@ struct QuizView: View {
 
             Spacer(minLength: 8.0)
 
-            LazyImage(source: currentPokemon?.sprites?.frontDefault) { state in
+            AsyncImage(url: URL(string: currentPokemon?.sprites?.frontDefault ?? "")) { state in
                 if let image = state.image {
                     image
                 } else {
@@ -123,12 +123,6 @@ struct QuizView: View {
             Task {
                 await viewModel.loadPokemons()
             }
-        }
-        .sheet(item: $presentPokemon) { pokemon in
-            PokemonDetailPage(pokemon: pokemon)
-                .presentationDetents([
-                    .large
-                ])
         }
         .padding(16.0)
     }
